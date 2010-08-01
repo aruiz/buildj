@@ -171,7 +171,7 @@ class ProjectTarget(object):
 		return str(self._target["type"])
 
 	def get_path (self):
-		return self._target.get ("path", "")
+		return str(self._target.get ("path", ""))
 		
 	def get_features (self):
 		tool = self.get_tool ()

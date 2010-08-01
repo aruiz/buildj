@@ -97,7 +97,7 @@ def build(bld):
 
 	for target in project.get_targets ():
 		args = target.get_build_arguments ()
-		args['path'] = bld.srcnode.find_dir(target.get_path().split('/'))
+		args['path'] = bld.srcnode.find_dir(target.get_path())
 		bld.new_task_gen (**args)
 
 		install_files = target.get_install_files ()

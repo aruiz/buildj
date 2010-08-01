@@ -49,6 +49,7 @@
 		{
 			"type": "sharedlib",
 			"tool": "vala",
+			"path": "valalib",
 			"input": ["vala_library.vala"],
 			"version": "12.4.5",
 			"gir": "Bleh-1.0"
