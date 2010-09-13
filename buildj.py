@@ -96,7 +96,19 @@ class ProjectFile:
 		return option_list
 
 	def get_targets (self):
-		return self._targets
+		names = dict([(tgt.get_name(), tgt) for tgt in self._targets])
+		deps = dict([(tgt.get_name(), tgt.get_uses()) for tgt in self._targets])
+		S = [tgt for tgt in deps if not deps[tgt]]
+		targets = []
+		while S:
+			n = S.pop(0)
+			targets.append(names[n])
+			for m in deps:
+				if n in deps[m]:
+					deps[m].remove(n)
+					if not deps[m]:
+						S.insert(0,m)
+		return targets
 
 	def get_tools (self):
 		tools = []
