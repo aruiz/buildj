@@ -13,14 +13,13 @@ VERSION = None
 def parse_project_file (project_file=DEFAULT_BUILDJ_FILE):
 	try:
 		project = ProjectFile (project_file)
+		set_project_info(project)
 	except ValueError, e:
 		raise Utils.WscriptError (str(e), project_file)
 	
 	return project
 
-def set_project_info (project_file=DEFAULT_BUILDJ_FILE):
-		project = parse_project_file ()
-
+def set_project_info (project):
 		global APPNAME, VERSION
 		APPNAME = project.get_project_name ()
 		VERSION = project.get_project_version ()
