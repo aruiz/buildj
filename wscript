@@ -2,7 +2,7 @@ import os
 import Utils
 import Options
 from buildj import *
-import extra_tools
+#import extra_tools
 
 APPNAME = None
 VERSION = None
@@ -92,7 +92,6 @@ def configure (conf):
 			conf.check_cfg (package="glib-2.0", mandatory=True)
 
 	conf.write_config_header()
-	conf.write_config_vapi()
 
 def build(bld):
 	project = parse_project_file ()

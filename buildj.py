@@ -1,15 +1,4 @@
-try:
-	import json
-except ImportError:
-	# Python < 2.6 doesn't have json
-	import simplejson as json
-
-try:
-	json.decoder
-except AttributeError:
-	# this is json-py and not Python's json
-	import simplejson as json
-
+import yaml
 import re
 
 WAF_TOOLS = {'cc':   'compiler_cc',
@@ -37,7 +26,7 @@ CC_TOOLCHAIN = {'ADDR2LINE': 'addr2line',
                 'STRINGS': 'strings', 'WINDRES': 'windres',
                 'AR': 'ar', 'RANLIB': 'ranlib', 'STRIP': 'strip'}
 
-DEFAULT_BUILDJ_FILE="project.js"
+DEFAULT_BUILDJ_FILE="project.yaml"
 
 def normalize_package_name (name):
 	name = name.upper ()
@@ -45,11 +34,10 @@ def normalize_package_name (name):
 	return nonalpha.sub ('_', name)
 
 class ProjectFile:
-	def __init__ (self, project="project.js"):
-		dec = json.decoder.JSONDecoder ()
+	def __init__ (self, project=DEFAULT_BUILDJ_FILE):
 		prj = open(project)
 		data = prj.read ()
-		self._project = dec.decode (data)
+		self._project = yaml.load (data)
 		prj.close ()
 
 		#TODO: try to raise some meaningful (and consistent) error
@@ -63,7 +51,7 @@ class ProjectFile:
 		for subdir in self._project.get ('subdirs', []):
 			prj = open ('%s/%s' % (subdir, project))
 			data = prj.read ()
-			subproject = dec.decode (data)
+			subproject = yaml.load (data)
 			for target_name, target_data in subproject['targets'].iteritems():
 				assert target_name not in self._project['targets']
 				if 'path' in target_data:
