@@ -2,7 +2,6 @@ import os
 import Utils
 import Options
 from buildj import *
-#import extra_tools
 
 APPNAME = None
 VERSION = None
@@ -52,7 +51,7 @@ def set_crosscompile_env (prefix, env={}):
 #TODO: Cache json values? Worth it?
 #TODO: Allow definition of different json filename
 
-def set_options (opt):
+def options (opt):
 	project = parse_project_file ()
 
 	#BuilDj options

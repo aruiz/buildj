@@ -6,15 +6,15 @@ WAF_TOOLS = {'cc':   'compiler_cc',
              'vala': 'compiler_cc vala'}
 
 # (Tool,Type) -> Waf features map
-FEATURES_MAP = {('cc', 'program'):     'cc cprogram',
-                ('cc', 'sharedlib'):   'cc cshlib',
-                ('cc', 'staticlib'):   'cc cstaticlib',
+FEATURES_MAP = {('cc', 'program'):     'c cprogram',
+                ('cc', 'sharedlib'):   'c cshlib',
+                ('cc', 'staticlib'):   'c cstlib',
                 ('c++', 'program'):    'cxx cprogram',
-                ('c++', 'sharedlib'):  'cxx cshlib',
-                ('c++', 'staticlib'):  'cxx cstaticlib',
-                ('vala', 'program'):   'cc cprogram',
-                ('vala', 'sharedlib'): 'cc cshlib',
-                ('vala', 'staticlib'): 'cc cstaticlib'}
+                ('c++', 'sharedlib'):  'cxxshlib',
+                ('c++', 'staticlib'):  'cxxstlib',
+                ('vala', 'program'):   'c cprogram',
+                ('vala', 'sharedlib'): 'c cshlib',
+                ('vala', 'staticlib'): 'c cstlib'}
 
 CC_TOOLCHAIN = {'ADDR2LINE': 'addr2line',
                 'AS': 'as', 'CC': 'gcc', 'CPP': 'cpp',
