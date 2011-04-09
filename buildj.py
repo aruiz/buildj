@@ -84,8 +84,8 @@ class ProjectFile:
 		return option_list
 
 	def get_targets (self):
-		names = dict([(tgt.get_name(), tgt) for tgt in self._targets])
-		deps = dict([(tgt.get_name(), tgt.get_uses()) for tgt in self._targets])
+		names = dict([(tgt.get_output(), tgt) for tgt in self._targets])
+		deps = dict([(tgt.get_output(), tgt.get_uses()) for tgt in self._targets])
 		S = [tgt for tgt in deps if not deps[tgt]]
 		targets = []
 		while S:
@@ -158,7 +158,12 @@ class ProjectTarget(object):
 
 	def get_name (self):
 		return str(self._name)
-						
+
+	def get_output (self):
+		if "output" in self._target:
+			return str(self._target["output"])
+		return self.get_name()
+
 	def get_tool (self):
 		if "tool" not in self._target:
 			return None
@@ -221,7 +226,7 @@ class ProjectTarget(object):
 		"WAF bld arguments dictionary"
 		args = {"features": self.get_features (),
 		        "source":   self.get_input (),
-		        "target":   self.get_name ()}
+		        "target":   self.get_output ()}
 		
 		return args
 
@@ -302,7 +307,7 @@ class DataTarget (ProjectTarget):
 		return self.get_input ()
 
 	def get_install_path (self):
-		return "${PREFIX}/share/" + self.get_name ()
+		return "${PREFIX}/share/" + self.get_output ()
 
 class ProjectRequirement:
 	def __init__ (self, name, requirement):

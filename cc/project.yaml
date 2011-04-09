@@ -36,6 +36,7 @@ targets:
   
   my_gtk_program:
     type:      program
+    output:    my_gtk_program_renamed
     tool:      cc
     input:
       - gtk_program.c
