@@ -84,8 +84,8 @@ class ProjectFile:
 		return option_list
 
 	def get_targets (self):
-		names = dict([(tgt.get_output(), tgt) for tgt in self._targets])
-		deps = dict([(tgt.get_output(), tgt.get_uses()) for tgt in self._targets])
+		names = dict([(tgt.get_name(), tgt) for tgt in self._targets])
+		deps = dict([(tgt.get_name(), tgt.get_uses()) for tgt in self._targets])
 		S = [tgt for tgt in deps if not deps[tgt]]
 		targets = []
 		while S:
@@ -226,6 +226,7 @@ class ProjectTarget(object):
 		"WAF bld arguments dictionary"
 		args = {"features": self.get_features (),
 		        "source":   self.get_input (),
+		        "name":     self.get_name (),
 		        "target":   self.get_output ()}
 		
 		return args
