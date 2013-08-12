@@ -56,7 +56,7 @@ targets:
       - vala_library.vala
   
   my_cpp_program_data:
-    tool: data
+    type: data
     input:
       - data/buildj.svg
     dir:

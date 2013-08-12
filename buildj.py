@@ -103,7 +103,7 @@ class ProjectFile:
 
 		for target in self._targets:
 			tool = target.get_tool ()
-			if tool and tool != "data":
+			if tool:
 				tools.append (tool)
 		return tools
 
@@ -129,7 +129,9 @@ class ProjectTarget(object):
 		if not isinstance (target, dict):
 			raise ValueError, "Target %s: the target argument must be a dictionary" % name
 
-		if 'tool' in target:
+		if target['type'] == 'data':
+			cls = DataTarget
+		elif 'tool' in target:
 			cls = TOOL_CLASS_MAP[target['tool']]
 		else:
 			sources = target['input']
@@ -416,8 +418,7 @@ class ProjectOption:
 #Mapping between tools and target classes
 TOOL_CLASS_MAP = {'cc':   CcTarget,
                   'c++':  CcTarget,
-                  'vala': ValaTarget,
-                  'data': DataTarget}
+                  'vala': ValaTarget}
 
 # Mapping between file extensions and tools
 EXT_TOOL_MAP = {'cc':   ('.c', '.h'),
